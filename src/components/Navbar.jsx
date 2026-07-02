@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react'
 
+
+const servicesDropdown = [
+  { icon: 'fa-laptop-code', label: 'Tech & Digital', id: 'tech' },
+  { icon: 'fa-bolt', label: 'Électronique & Systèmes', id: 'elec' },
+  { icon: 'fa-seedling', label: 'Agriculture Intelligente', id: 'agri' },
+]
+
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [servicesHover, setServicesHover] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
@@ -10,9 +18,18 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const handleServiceClick = (id) => {
+    setServicesHover(false)
+    // Scroll vers services et ouvre la bonne catégorie
+    window.location.hash = `#services-${id}`
+    const el = document.getElementById('services')
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    // Déclenche l'événement pour ouvrir la catégorie
+    window.dispatchEvent(new CustomEvent('openServiceTab', { detail: id }))
+  }
+
   const links = [
     { label: 'Accueil', href: '#hero' },
-    { label: 'Services', href: '#services' },
     { label: 'À propos', href: '#apropos' },
     { label: 'Réalisations', href: '#portfolio' },
     { label: 'Contact', href: '#contact' },
@@ -54,16 +71,98 @@ function Navbar() {
       </a>
 
       {/* LIENS DESKTOP */}
-      <ul style={{ display: 'flex', alignItems: 'center', gap: 32, listStyle: 'none' }}
-          className="nav-links-desktop">
+      <ul style={{ display: 'flex', alignItems: 'center', gap: 32, listStyle: 'none' }}>
+
+        <li><a href="#hero" style={{ textDecoration: 'none', color: '#8899bb', fontSize: 14, fontWeight: 500, transition: 'color 0.2s' }}
+          onMouseEnter={e => e.target.style.color = '#00C2FF'}
+          onMouseLeave={e => e.target.style.color = '#8899bb'}>
+          Accueil
+        </a></li>
+
+        {/* SERVICES DROPDOWN */}
+        <li style={{ position: 'relative' }}
+          onMouseEnter={() => setServicesHover(true)}
+          onMouseLeave={() => setServicesHover(false)}>
+          <a href="#services" style={{
+            textDecoration: 'none', fontSize: 14, fontWeight: 500, transition: 'color 0.2s',
+            color: servicesHover ? '#00C2FF' : '#8899bb',
+            display: 'flex', alignItems: 'center', gap: 6
+          }}>
+            Services
+            <i className={`fas fa-chevron-${servicesHover ? 'up' : 'down'}`}
+              style={{ fontSize: 11, transition: 'transform 0.2s' }} />
+          </a>
+
+          {/* DROPDOWN PANEL */}
+          {servicesHover && (
+            <div style={{
+              position: 'absolute', top: '100%', left: '50%',
+              transform: 'translateX(-50%)',
+              marginTop: 16, width: 280,
+              background: '#0D1525',
+              border: '1px solid #1a2540',
+              borderRadius: 14,
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+              overflow: 'hidden',
+              animation: 'fadeDown 0.2s ease'
+            }}>
+              {/* Flèche */}
+              <div style={{
+                position: 'absolute', top: -6, left: '50%', transform: 'translateX(-50%)',
+                width: 12, height: 12, background: '#0D1525',
+                border: '1px solid #1a2540', borderBottom: 'none', borderRight: 'none',
+                rotate: '45deg'
+              }} />
+
+              <div style={{ padding: '8px 0' }}>
+                {servicesDropdown.map((s, i) => (
+                  <div key={i}
+                    onClick={() => handleServiceClick(s.id)}
+                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,102,255,0.08)'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 14,
+                      padding: '14px 20px', cursor: 'pointer',
+                      transition: 'background 0.2s',
+                      borderBottom: i < servicesDropdown.length - 1 ? '1px solid #1a2540' : 'none'
+                    }}>
+                    <div style={{
+                      width: 38, height: 38, borderRadius: 10,
+                      background: 'rgba(0,102,255,0.1)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                    }}>
+                      <i className={`fas ${s.icon}`} style={{ fontSize: 16, color: '#00C2FF' }} />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: '#fff' }}>{s.label}</div>
+                      <div style={{ fontSize: 12, color: '#8899bb', marginTop: 2 }}>
+                        {s.id === 'tech' ? '6 services' : s.id === 'elec' ? '5 services' : '5 services'}
+                      </div>
+                    </div>
+                    <i className="fas fa-arrow-right" style={{ fontSize: 12, color: '#8899bb', marginLeft: 'auto' }} />
+                  </div>
+                ))}
+              </div>
+
+              {/* Footer dropdown */}
+              <div style={{
+                padding: '12px 20px', background: 'rgba(0,102,255,0.05)',
+                borderTop: '1px solid #1a2540', textAlign: 'center'
+              }}>
+                <a href="#services" style={{ fontSize: 13, color: '#00C2FF', textDecoration: 'none', fontWeight: 500 }}
+                  onClick={() => setServicesHover(false)}>
+                  Voir tous nos services <i className="fas fa-arrow-right" style={{ fontSize: 11, marginLeft: 4 }} />
+                </a>
+              </div>
+            </div>
+          )}
+        </li>
+
         {links.map(l => (
           <li key={l.label}>
-            <a href={l.href} style={{
-              textDecoration: 'none', color: '#8899bb',
-              fontSize: 14, fontWeight: 500, transition: 'color 0.2s'
-            }}
-            onMouseEnter={e => e.target.style.color = '#00C2FF'}
-            onMouseLeave={e => e.target.style.color = '#8899bb'}>
+            <a href={l.href} style={{ textDecoration: 'none', color: '#8899bb', fontSize: 14, fontWeight: 500, transition: 'color 0.2s' }}
+              onMouseEnter={e => e.target.style.color = '#00C2FF'}
+              onMouseLeave={e => e.target.style.color = '#8899bb'}>
               {l.label}
             </a>
           </li>
@@ -72,7 +171,6 @@ function Navbar() {
 
       {/* DROITE */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        {/* Switch langue */}
         <div style={{ display: 'flex', gap: 6 }}>
           {['FR', 'EN'].map((lang, i) => (
             <button key={lang} style={{
@@ -80,52 +178,27 @@ function Navbar() {
               border: `1px solid ${i === 0 ? '#00C2FF' : '#1a2540'}`,
               color: i === 0 ? '#00C2FF' : '#8899bb',
               fontSize: 12, padding: '4px 10px', borderRadius: 6,
-              cursor: 'pointer', fontFamily: 'Poppins, sans-serif',
-              transition: 'all 0.2s'
+              cursor: 'pointer', fontFamily: 'Poppins, sans-serif'
             }}>
               {lang}
             </button>
           ))}
         </div>
-
-        {/* CTA */}
         <a href="#contact" style={{
           padding: '10px 22px', borderRadius: 8, fontSize: 14, fontWeight: 600,
           background: 'linear-gradient(135deg, #0066FF, #00C2FF)',
-          color: '#fff', textDecoration: 'none', transition: 'opacity 0.2s'
-        }}
-        onMouseEnter={e => e.target.style.opacity = '0.85'}
-        onMouseLeave={e => e.target.style.opacity = '1'}>
+          color: '#fff', textDecoration: 'none'
+        }}>
           Devis gratuit
         </a>
-
-        {/* Hamburger mobile */}
-        <div onClick={() => setMenuOpen(!menuOpen)}
-          style={{ display: 'none', flexDirection: 'column', gap: 5, cursor: 'pointer' }}
-          className="hamburger">
-          <span style={{ width: 24, height: 2, background: '#e2e8f0', borderRadius: 2 }}/>
-          <span style={{ width: 24, height: 2, background: '#e2e8f0', borderRadius: 2 }}/>
-          <span style={{ width: 24, height: 2, background: '#e2e8f0', borderRadius: 2 }}/>
-        </div>
       </div>
 
-      {/* MENU MOBILE */}
-      {menuOpen && (
-        <div style={{
-          position: 'absolute', top: 72, left: 0, right: 0,
-          background: 'rgba(10,15,28,0.98)',
-          borderBottom: '1px solid #1a2540',
-          padding: '20px 5%', display: 'flex', flexDirection: 'column', gap: 20
-        }}>
-          {links.map(l => (
-            <a key={l.label} href={l.href}
-              onClick={() => setMenuOpen(false)}
-              style={{ color: '#e2e8f0', textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>
-              {l.label}
-            </a>
-          ))}
-        </div>
-      )}
+      <style>{`
+        @keyframes fadeDown {
+          from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+          to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+      `}</style>
     </nav>
   )
 }

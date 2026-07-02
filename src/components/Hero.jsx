@@ -1,86 +1,25 @@
-import { useEffect, useRef } from 'react'
+import TechBackground from './TechBackground'
 
 function Hero() {
-  const canvasRef = useRef(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-    let particles = []
-    let animId
-
-    const resize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
-    resize()
-    window.addEventListener('resize', resize)
-
-    for (let i = 0; i < 70; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 2 + 0.5,
-        dx: (Math.random() - 0.5) * 0.4,
-        dy: (Math.random() - 0.5) * 0.4,
-        o: Math.random() * 0.5 + 0.1
-      })
-    }
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      particles.forEach(p => {
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(0,194,255,${p.o})`
-        ctx.fill()
-        p.x += p.dx
-        p.y += p.dy
-        if (p.x < 0 || p.x > canvas.width) p.dx *= -1
-        if (p.y < 0 || p.y > canvas.height) p.dy *= -1
-      })
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y)
-          if (dist < 120) {
-            ctx.beginPath()
-            ctx.moveTo(particles[i].x, particles[i].y)
-            ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle = `rgba(0,102,255,${0.08 * (1 - dist / 120)})`
-            ctx.lineWidth = 0.6
-            ctx.stroke()
-          }
-        }
-      }
-      animId = requestAnimationFrame(draw)
-    }
-    draw()
-
-    return () => {
-      cancelAnimationFrame(animId)
-      window.removeEventListener('resize', resize)
-    }
-  }, [])
-
   return (
     <section id="hero" style={{
       minHeight: '100vh', display: 'flex', alignItems: 'center',
       justifyContent: 'center', position: 'relative', overflow: 'hidden',
       padding: '120px 5% 80px', background: '#0A0F1C'
     }}>
-      {/* Particules */}
-      <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
+      {/* Animation Tech */}
+      <TechBackground opacity={0.8} />
 
       {/* Glows */}
       <div style={{
         position: 'absolute', width: 600, height: 600, borderRadius: '50%',
         background: '#0066FF', filter: 'blur(120px)', opacity: 0.12,
-        top: -100, right: -100, pointerEvents: 'none'
+        top: -100, right: -100, pointerEvents: 'none', zIndex: 0
       }} />
       <div style={{
         position: 'absolute', width: 400, height: 400, borderRadius: '50%',
         background: '#7A00FF', filter: 'blur(120px)', opacity: 0.1,
-        bottom: -50, left: -80, pointerEvents: 'none'
+        bottom: -50, left: -80, pointerEvents: 'none', zIndex: 0
       }} />
 
       {/* Contenu */}
@@ -88,21 +27,7 @@ function Hero() {
 
         {/* Texte */}
         <div style={{ maxWidth: 640 }}>
-          {/* Badge */}
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            padding: '6px 16px', borderRadius: 20,
-            border: '1px solid rgba(0,194,255,0.3)',
-            background: 'rgba(0,102,255,0.08)',
-            fontSize: 12, color: '#00C2FF', fontWeight: 500,
-            marginBottom: 28, letterSpacing: '0.5px'
-          }}>
-            <span style={{
-              width: 6, height: 6, borderRadius: '50%', background: '#00C2FF',
-              animation: 'pulse 2s infinite'
-            }} />
-            Solutions technologiques intelligentes
-          </div>
+         
 
           {/* Titre */}
           <h1 style={{ fontSize: 'clamp(2.4rem, 5vw, 4rem)', fontWeight: 800, lineHeight: 1.12, marginBottom: 20, letterSpacing: '-0.5px' }}>
@@ -119,7 +44,7 @@ function Hero() {
 
           {/* Sous-titre */}
           <p style={{ fontSize: '1.05rem', color: '#8899bb', lineHeight: 1.75, marginBottom: 40, maxWidth: 520 }}>
-            Rivex conçoit, automatise et élève vos projets technologiques  du développement web & mobile à l'agriculture intelligente, en passant par la cybersécurité et l'IA.
+            Rivex conçoit, automatise et élève vos projets technologiques du développement web & mobile à l'agriculture intelligente, en passant par la cybersécurité et l'IA.
           </p>
 
           {/* Boutons */}
@@ -128,15 +53,14 @@ function Hero() {
               padding: '14px 30px', borderRadius: 10, fontSize: 15, fontWeight: 600,
               background: 'linear-gradient(135deg, #0066FF, #00C2FF)',
               color: '#fff', textDecoration: 'none',
-              boxShadow: '0 0 30px rgba(0,102,255,0.35)',
-              transition: 'transform 0.2s, box-shadow 0.2s'
+              boxShadow: '0 0 30px rgba(0,102,255,0.35)'
             }}>
               Découvrir nos services
             </a>
             <a href="#contact" style={{
               padding: '14px 30px', borderRadius: 10, fontSize: 15, fontWeight: 600,
               background: 'transparent', color: '#fff', textDecoration: 'none',
-              border: '1px solid rgba(255,255,255,0.2)', transition: 'all 0.2s'
+              border: '1px solid rgba(255,255,255,0.2)'
             }}>
               Demander un devis
             </a>
