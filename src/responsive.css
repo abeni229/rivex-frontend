@@ -1,0 +1,31 @@
+@media (max-width: 1024px) {
+
+  /* NAVBAR */
+  nav ul.desktop-links {
+    display: none !important;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  /* HERO */
+  #hero .hero-wrap {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  #hero .hero-visual {
+    display: none !important;
+  }
+
+  #hero .hero-actions {
+    justify-content: center !important;
+  }
+
+  #hero .hero-stats {
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 24px !important;
+  }
+}
