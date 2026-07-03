@@ -1,21 +1,31 @@
+import useWindowSize from '../hooks/useWindowSize'
+
 function Footer() {
   const annee = new Date().getFullYear()
+  const { width } = useWindowSize()
+  const isMobile = width < 768
+  const isTablet = width >= 768 && width < 1024
 
   return (
     <footer style={{
       background: '#060B14',
       borderTop: '1px solid #1a2540',
-      padding: '64px 5% 32px'
+      padding: isMobile ? '48px 6% 24px' : '64px 5% 32px'
     }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
         {/* Top */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48, marginBottom: 48 }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '2fr 1fr 1fr 1fr',
+          gap: isMobile ? 36 : 48,
+          marginBottom: isMobile ? 36 : 48
+        }}>
 
           {/* Brand */}
           <div>
             <a href="#hero" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: 16 }}>
-              <svg viewBox="0 0 160 44" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg viewBox="0 0 160 44" height="34" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <linearGradient id="lg-footer" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#00C2FF"/>
@@ -36,17 +46,17 @@ function Footer() {
                 <text x="32" y="30" fontFamily="Poppins, sans-serif" fontWeight="800" fontSize="22" fill="#ffffff" letterSpacing="2">RIVEX</text>
               </svg>
             </a>
-            <p style={{ fontSize: 14, color: '#8899bb', lineHeight: 1.75, maxWidth: 280, marginBottom: 24 }}>
+            <p style={{ fontSize: 13, color: '#8899bb', lineHeight: 1.75, maxWidth: 280, marginBottom: 20 }}>
               Solutions technologiques intelligentes pour un monde en constante évolution. Innovate • Automate • Elevate.
             </p>
-            <div style={{ display: 'flex', gap: 10 }}>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               {[
-                { icon: 'fa-facebook-f', href: '#' },
+                { icon: 'fa-facebook-f', href: 'https://www.facebook.com/profile.php?id=61591720462723' },
                 { icon: 'fa-linkedin-in', href: '#' },
                 { icon: 'fa-tiktok', href: '#' },
-                { icon: 'fa-whatsapp', href: '#' },
+                { icon: 'fa-whatsapp', href: 'https://wa.me/22901563947411' },
               ].map((s, i) => (
-                <a key={i} href={s.href}
+                <a key={i} href={s.href} target="_blank" rel="noreferrer"
                   onMouseEnter={e => {
                     e.currentTarget.style.borderColor = '#0066FF'
                     e.currentTarget.style.color = '#00C2FF'
@@ -72,17 +82,23 @@ function Footer() {
 
           {/* Services */}
           <div>
-            <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 20, letterSpacing: '0.5px' }}>
+            <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 18, letterSpacing: '0.5px' }}>
               Services
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {['Tech & Digital', 'Électronique', 'Agriculture IA', 'Cybersécurité', 'Chatbots'].map((s, i) => (
+              {[
+                { label: 'Tech & Digital', href: '#services' },
+                { label: 'Électronique', href: '#services' },
+                { label: 'Agriculture IA', href: '#services' },
+                { label: 'Cybersécurité', href: '#services' },
+                { label: 'Chatbots', href: '#services' },
+              ].map((s, i) => (
                 <li key={i}>
-                  <a href="#services"
+                  <a href={s.href}
                     onMouseEnter={e => e.target.style.color = '#00C2FF'}
                     onMouseLeave={e => e.target.style.color = '#8899bb'}
                     style={{ fontSize: 14, color: '#8899bb', textDecoration: 'none', transition: 'color 0.2s' }}>
-                    {s}
+                    {s.label}
                   </a>
                 </li>
               ))}
@@ -91,7 +107,7 @@ function Footer() {
 
           {/* Entreprise */}
           <div>
-            <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 20, letterSpacing: '0.5px' }}>
+            <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 18, letterSpacing: '0.5px' }}>
               Entreprise
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -115,23 +131,23 @@ function Footer() {
 
           {/* Contact & Légal */}
           <div>
-            <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 20, letterSpacing: '0.5px' }}>
+            <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 18, letterSpacing: '0.5px' }}>
               Contact
             </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 28 }}>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
               {[
-                { icon: 'fa-phone', label: '+229 XX XX XX XX' },
-                { icon: 'fa-envelope', label: 'contact@rivex.tech' },
+                { icon: 'fa-phone', label: '+229 01 56 39 47 41' },
+                { icon: 'fa-envelope', label: 'rivex15@outlook.com' },
                 { icon: 'fa-globe', label: 'rivex.tech' },
               ].map((c, i) => (
                 <li key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <i className={`fas ${c.icon}`} style={{ fontSize: 12, color: '#00C2FF', width: 14 }} />
-                  <span style={{ fontSize: 14, color: '#8899bb' }}>{c.label}</span>
+                  <i className={`fas ${c.icon}`} style={{ fontSize: 12, color: '#00C2FF', width: 14, flexShrink: 0 }} />
+                  <span style={{ fontSize: 13, color: '#8899bb' }}>{c.label}</span>
                 </li>
               ))}
             </ul>
 
-            <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 16, letterSpacing: '0.5px' }}>
+            <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 14, letterSpacing: '0.5px' }}>
               Légal
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -144,7 +160,7 @@ function Footer() {
                   <a href={l.href}
                     onMouseEnter={e => e.target.style.color = '#00C2FF'}
                     onMouseLeave={e => e.target.style.color = '#8899bb'}
-                    style={{ fontSize: 14, color: '#8899bb', textDecoration: 'none', transition: 'color 0.2s' }}>
+                    style={{ fontSize: 13, color: '#8899bb', textDecoration: 'none', transition: 'color 0.2s' }}>
                     {l.label}
                   </a>
                 </li>
@@ -154,12 +170,17 @@ function Footer() {
         </div>
 
         {/* Divider */}
-        <div style={{ height: 1, background: '#1a2540', marginBottom: 28 }} />
+        <div style={{ height: 1, background: '#1a2540', marginBottom: 24 }} />
 
         {/* Bottom */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+        <div style={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          justifyContent: 'space-between', alignItems: 'center',
+          gap: 12, textAlign: isMobile ? 'center' : 'left'
+        }}>
           <p style={{ fontSize: 13, color: '#8899bb' }}>
-            © {annee} Rivex. Tous droits réservés. Conçu au Bénin par Rouky dev
+            © {annee} Rivex. Tous droits réservés. Conçu au Bénin 🇧🇯
           </p>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <span style={{ fontSize: 12, color: '#4a5a7a' }}>Propulsé par</span>

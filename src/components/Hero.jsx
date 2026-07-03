@@ -36,21 +36,7 @@ function Hero() {
         {/* Texte */}
         <div style={{ maxWidth: isMobile ? '100%' : 640, width: '100%' }}>
 
-          {/* Badge */}
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            padding: '6px 16px', borderRadius: 20,
-            border: '1px solid rgba(0,194,255,0.3)',
-            background: 'rgba(0,102,255,0.08)',
-            fontSize: 11, color: '#00C2FF', fontWeight: 500,
-            marginBottom: 24, letterSpacing: '0.5px'
-          }}>
-            <span style={{
-              width: 6, height: 6, borderRadius: '50%', background: '#00C2FF',
-              animation: 'pulse 2s infinite', flexShrink: 0
-            }} />
-            Solutions technologiques intelligentes
-          </div>
+         
 
           {/* Titre */}
           <h1 style={{

@@ -10,9 +10,19 @@ const images = [
 
 const membres = [
   {
-    nom: 'Membre 1',
-    role: 'CEO & Fondateur',
-    icon: 'fa-user-tie',
+    nom: 'Valère KPOVIESSI',
+    role: 'CEO & Responsable Cybersécurité',
+    icon: 'fa-shield-alt',
+    socials: [
+      { icon: 'fa-linkedin-in', href: '#' },
+      { icon: 'fa-facebook-f', href: 'https://www.facebook.com/profile.php?id=61591720462723' },
+      { icon: 'fa-whatsapp', href: 'https://wa.me/22901563947411' },
+    ]
+  },
+  {
+    nom: 'Riccardo MARIYO M.',
+    role: 'CIO & Responsable Design UI/UX',
+    icon: 'fa-palette',
     socials: [
       { icon: 'fa-linkedin-in', href: '#' },
       { icon: 'fa-facebook-f', href: '#' },
@@ -20,8 +30,8 @@ const membres = [
     ]
   },
   {
-    nom: 'Membre 2',
-    role: 'Lead Developer',
+    nom: 'Roukayath GAZALIOU',
+    role: 'CPDO – Développement Web & Mobile',
     icon: 'fa-code',
     socials: [
       { icon: 'fa-linkedin-in', href: '#' },
@@ -30,22 +40,12 @@ const membres = [
     ]
   },
   {
-    nom: 'Membre 3',
-    role: 'Ingénieur Électronique',
+    nom: 'Hans SONON',
+    role: 'CHPO – Hardware & Prototypage',
     icon: 'fa-microchip',
     socials: [
       { icon: 'fa-linkedin-in', href: '#' },
       { icon: 'fa-facebook-f', href: '#' },
-      { icon: 'fa-whatsapp', href: '#' },
-    ]
-  },
-  {
-    nom: 'Membre 4',
-    role: 'Expert Agri-Tech',
-    icon: 'fa-seedling',
-    socials: [
-      { icon: 'fa-linkedin-in', href: '#' },
-      { icon: 'fa-tiktok', href: '#' },
       { icon: 'fa-whatsapp', href: '#' },
     ]
   },

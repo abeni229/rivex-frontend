@@ -86,7 +86,7 @@ function Services() {
       <div style={{
         position: 'absolute', inset: 0, zIndex: 1,
         background: bgActif
-          ? 'linear-gradient(135deg, rgba(10,15,28,0.92) 0%, rgba(10,15,28,0.82) 100%)'
+          ? 'linear-gradient(135deg, rgba(10,15,28,0.65) 0%, rgba(10,15,28,0.82) 100%)'
           : '#0A0F1C'
       }} />
       <TechBackground opacity={0.2} />

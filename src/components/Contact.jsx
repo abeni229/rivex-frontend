@@ -1,67 +1,75 @@
 import TechBackground from './TechBackground'
+import useWindowSize from '../hooks/useWindowSize'
 
 function Contact() {
+  const { width } = useWindowSize()
+  const isMobile = width < 768
+
   return (
     <section id="contact" style={{
-      padding: '100px 5%', background: '#0A0F1C',
-      position: 'relative', overflow: 'hidden'
+      padding: isMobile ? '70px 6%' : '100px 5%',
+      background: '#0A0F1C', position: 'relative', overflow: 'hidden'
     }}>
       <TechBackground opacity={0.15} />
 
       <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1 }}>
 
         {/* En-tête */}
-        <div style={{ textAlign: 'center', marginBottom: 60 }}>
+        <div style={{ textAlign: 'center', marginBottom: isMobile ? 40 : 60 }}>
           <div style={{ fontSize: 12, letterSpacing: 2, textTransform: 'uppercase', color: '#00C2FF', fontWeight: 600, marginBottom: 12 }}>
             Parlons de votre projet
           </div>
-          <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 800, lineHeight: 1.2, marginBottom: 16 }}>
+          <h2 style={{ fontSize: isMobile ? '1.8rem' : 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 800, lineHeight: 1.2, marginBottom: 16 }}>
             Contactez{' '}
             <span style={{ background: 'linear-gradient(135deg, #0066FF, #00C2FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               Rivex
             </span>
           </h2>
-          <p style={{ fontSize: '1rem', color: '#8899bb', maxWidth: 480, margin: '0 auto', lineHeight: 1.75 }}>
+          <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', color: '#8899bb', maxWidth: 480, margin: '0 auto', lineHeight: 1.75 }}>
             Une idée ? Un projet ? Un besoin urgent ? Notre équipe vous répond rapidement et vous accompagne de A à Z.
           </p>
         </div>
 
         {/* Contenu */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 64 }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1.4fr',
+          gap: isMobile ? 40 : 64
+        }}>
 
           {/* Infos contact */}
           <div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 40 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 36 }}>
               {[
-                { icon: 'fa-phone', titre: 'Téléphone', valeur: '+229 XX XX XX XX' },
-                { icon: 'fa-envelope', titre: 'Email', valeur: 'contact@rivex.tech' },
+                { icon: 'fa-phone', titre: 'Téléphone', valeur: '+229 01 56 39 47 41' },
+                { icon: 'fa-envelope', titre: 'Email', valeur: 'rivex15@outlook.com' },
                 { icon: 'fa-map-marker-alt', titre: 'Adresse', valeur: 'Bénin — Disponible dès août 2025' },
               ].map((item, i) => (
                 <div key={i} style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
                   <div style={{
-                    width: 48, height: 48, borderRadius: 12, flexShrink: 0,
+                    width: 44, height: 44, borderRadius: 12, flexShrink: 0,
                     background: 'rgba(0,102,255,0.12)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center'
                   }}>
-                    <i className={`fas ${item.icon}`} style={{ fontSize: 18, color: '#00C2FF' }} />
+                    <i className={`fas ${item.icon}`} style={{ fontSize: 16, color: '#00C2FF' }} />
                   </div>
                   <div>
                     <div style={{ fontSize: 12, color: '#8899bb', marginBottom: 4 }}>{item.titre}</div>
-                    <div style={{ fontSize: 15, color: '#fff', fontWeight: 500 }}>{item.valeur}</div>
+                    <div style={{ fontSize: 14, color: '#fff', fontWeight: 500 }}>{item.valeur}</div>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Réseaux sociaux */}
-            <div style={{ marginBottom: 40 }}>
-              <div style={{ fontSize: 13, color: '#8899bb', marginBottom: 16, fontWeight: 500 }}>Suivez-nous</div>
-              <div style={{ display: 'flex', gap: 12 }}>
+            <div style={{ marginBottom: 32 }}>
+              <div style={{ fontSize: 13, color: '#8899bb', marginBottom: 14, fontWeight: 500 }}>Suivez-nous</div>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 {[
-                  { icon: 'fa-facebook-f', href: '#' },
+                 { icon: 'fa-facebook-f', href: 'https://www.facebook.com/profile.php?id=61591720462723' },
                   { icon: 'fa-linkedin-in', href: '#' },
                   { icon: 'fa-tiktok', href: '#' },
-                  { icon: 'fa-whatsapp', href: '#' },
+                  { icon: 'fa-whatsapp', href: 'https://wa.me/22901563947411' },
                 ].map((s, i) => (
                   <a key={i} href={s.href}
                     onMouseEnter={e => {
@@ -78,7 +86,7 @@ function Contact() {
                       width: 44, height: 44, borderRadius: 12,
                       background: '#0D1525', border: '1px solid #1a2540',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#8899bb', fontSize: 18, textDecoration: 'none',
+                      color: '#8899bb', fontSize: 17, textDecoration: 'none',
                       transition: 'all 0.2s'
                     }}>
                     <i className={`fab ${s.icon}`} />
@@ -88,14 +96,13 @@ function Contact() {
             </div>
 
             {/* WhatsApp direct */}
-            <a href="https://wa.me/229XXXXXXXX" target="_blank" rel="noreferrer"
-              onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
-              onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+            <a href="https://wa.me/22901563947411" target="_blank" rel="noreferrer"
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
-                padding: '14px 24px', borderRadius: 10, fontSize: 14, fontWeight: 600,
+                padding: '13px 22px', borderRadius: 10, fontSize: 14, fontWeight: 600,
                 background: '#25D366', color: '#fff', textDecoration: 'none',
-                transition: 'opacity 0.2s'
+                width: isMobile ? '100%' : 'auto',
+                justifyContent: isMobile ? 'center' : 'flex-start'
               }}>
               <i className="fab fa-whatsapp" style={{ fontSize: 20 }} />
               Contacter sur WhatsApp
@@ -105,9 +112,14 @@ function Contact() {
           {/* Formulaire */}
           <div style={{
             background: '#0D1525', borderRadius: 20,
-            border: '1px solid #1a2540', padding: '40px'
+            border: '1px solid #1a2540',
+            padding: isMobile ? '24px 20px' : '40px'
           }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: 16, marginBottom: 16
+            }}>
               {[
                 { label: 'Nom complet', type: 'text', placeholder: 'Votre nom' },
                 { label: 'Email', type: 'email', placeholder: 'votre@email.com' },
@@ -133,7 +145,7 @@ function Contact() {
               <label style={{ display: 'block', fontSize: 13, color: '#8899bb', marginBottom: 8, fontWeight: 500 }}>
                 Téléphone / WhatsApp
               </label>
-              <input type="tel" placeholder="+229 XX XX XX XX"
+              <input type="tel" placeholder="+229 01 90 00 00 00"
                 onFocus={e => e.target.style.borderColor = '#0066FF'}
                 onBlur={e => e.target.style.borderColor = '#1a2540'}
                 style={{
@@ -218,7 +230,7 @@ function Contact() {
       </div>
 
       {/* WhatsApp flottant */}
-      <a href="https://wa.me/229XXXXXXXX" target="_blank" rel="noreferrer"
+     <a href="https://wa.me/22901563947411" target="_blank" rel="noreferrer"
         style={{
           position: 'fixed', bottom: 28, right: 28, zIndex: 999,
           width: 56, height: 56, borderRadius: '50%',
