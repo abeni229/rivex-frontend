@@ -1,12 +1,20 @@
 import { useState, useEffect } from 'react'
 import TechBackground from './TechBackground'
 import useWindowSize from '../hooks/useWindowSize'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
+
+function Services() {
+  const { t } = useLanguage()
+  const [ouvert, setOuvert] = useState(null)
+  const [bgActif, setBgActif] = useState(null)
+  const { width } = useWindowSize()
+  const isMobile = width < 768
 
 const categories = [
   {
     id: 'tech',
     icon: 'fa-laptop-code',
-    titre: 'Tech & Digital',
+    titre: t('drop_tech'),
     bg: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80',
     services: [
       { icon: 'fa-globe', titre: 'Création de sites web', desc: 'Sites vitrines, e-commerce et applications web modernes, rapides et optimisés pour tous les appareils.' },
@@ -20,7 +28,7 @@ const categories = [
   {
     id: 'elec',
     icon: 'fa-bolt',
-    titre: 'Électronique & Systèmes',
+    titre: t('drop_elec'),
     bg: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1600&q=80',
     services: [
       { icon: 'fa-desktop', titre: 'Systèmes informatiques', desc: 'Installation, configuration et mise à jour de vos systèmes informatiques pour un fonctionnement optimal.' },
@@ -33,7 +41,7 @@ const categories = [
   {
     id: 'agri',
     icon: 'fa-seedling',
-    titre: 'Agriculture Intelligente',
+    titre: t('drop_agri'),
     bg: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&q=80',
     services: [
       { icon: 'fa-tint', titre: 'Irrigation intelligente', desc: 'Installation de systèmes d\'irrigation automatiques et intelligents pour optimiser la gestion de l\'eau.' },
@@ -45,11 +53,6 @@ const categories = [
   }
 ]
 
-function Services() {
-  const [ouvert, setOuvert] = useState(null)
-  const [bgActif, setBgActif] = useState(null)
-  const { width } = useWindowSize()
-  const isMobile = width < 768
 
   useEffect(() => {
     const handler = (e) => {
@@ -96,16 +99,16 @@ function Services() {
         {/* En-tête */}
         <div style={{ marginBottom: isMobile ? 36 : 60 }}>
           <div style={{ fontSize: 12, letterSpacing: 2, textTransform: 'uppercase', color: '#00C2FF', fontWeight: 600, marginBottom: 12 }}>
-            Ce que nous faisons
+        {t('srv_label')}
           </div>
           <h2 style={{ fontSize: isMobile ? '1.8rem' : 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 800, lineHeight: 1.2, marginBottom: 16 }}>
             Nos{' '}
             <span style={{ background: 'linear-gradient(135deg, #0066FF, #00C2FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              services
+              {t('srv_titre')}
             </span>
           </h2>
           <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', color: '#8899bb', maxWidth: 560, lineHeight: 1.75 }}>
-            Des solutions complètes pour les entreprises qui veulent prendre de l'avance dans un monde en constante évolution technologique.
+          {t('srv_desc')}
           </p>
         </div>
 
@@ -187,7 +190,7 @@ function Services() {
                         marginTop: 12, fontSize: 13, color: '#00C2FF',
                         textDecoration: 'none', fontWeight: 500
                       }}>
-                        Demander un devis <i className="fas fa-arrow-right" style={{ fontSize: 11 }} />
+                      {t('srv_devis')}<i className="fas fa-arrow-right" style={{ fontSize: 11 }} />
                       </a>
                     </div>
                   ))}

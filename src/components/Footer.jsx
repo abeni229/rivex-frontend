@@ -1,6 +1,8 @@
 import useWindowSize from '../hooks/useWindowSize'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 function Footer() {
+  const { t } = useLanguage()
   const annee = new Date().getFullYear()
   const { width } = useWindowSize()
   const isMobile = width < 768
@@ -47,7 +49,7 @@ function Footer() {
               </svg>
             </a>
             <p style={{ fontSize: 13, color: '#8899bb', lineHeight: 1.75, maxWidth: 280, marginBottom: 20 }}>
-              Solutions technologiques intelligentes pour un monde en constante évolution. Innovate • Automate • Elevate.
+             {t('ft_desc')}
             </p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               {[
@@ -83,7 +85,7 @@ function Footer() {
           {/* Services */}
           <div>
             <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 18, letterSpacing: '0.5px' }}>
-              Services
+             {t('ft_services')}
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[
@@ -108,7 +110,7 @@ function Footer() {
           {/* Entreprise */}
           <div>
             <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 18, letterSpacing: '0.5px' }}>
-              Entreprise
+              {t('ft_entreprise')}
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[
@@ -132,7 +134,7 @@ function Footer() {
           {/* Contact & Légal */}
           <div>
             <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 18, letterSpacing: '0.5px' }}>
-              Contact
+             {t('ft_contact')}
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
               {[
@@ -148,13 +150,13 @@ function Footer() {
             </ul>
 
             <h4 style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 14, letterSpacing: '0.5px' }}>
-              Légal
+             {t('ft_legal')}
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[
-                { label: 'Mentions légales', href: '#' },
-                { label: 'Confidentialité', href: '#' },
-                { label: 'CGU', href: '#' },
+                { label: t('ft_mentions'), href: '#' },
+                { label: t('ft_confidentialite'), href: '#' },
+                { label: t('ft_cgu'), href: '#' },
               ].map((l, i) => (
                 <li key={i}>
                   <a href={l.href}
@@ -180,10 +182,10 @@ function Footer() {
           gap: 12, textAlign: isMobile ? 'center' : 'left'
         }}>
           <p style={{ fontSize: 13, color: '#8899bb' }}>
-            © {annee} Rivex. Tous droits réservés. Conçu au Bénin 🇧🇯
+            © {annee} Rivex.{t('ft_copyright')}
           </p>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <span style={{ fontSize: 12, color: '#4a5a7a' }}>Propulsé par</span>
+            <span style={{ fontSize: 12, color: '#4a5a7a' }}> {t('ft_propulse')}</span>
             <span style={{ fontSize: 13, fontWeight: 700, background: 'linear-gradient(135deg, #0066FF, #00C2FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               Rivex
             </span>

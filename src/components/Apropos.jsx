@@ -1,6 +1,7 @@
 import TechBackground from './TechBackground'
 import SliderBackground from './SliderBackground'
 import useWindowSize from '../hooks/useWindowSize'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 const images = [
   'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1600&q=80',
@@ -8,34 +9,38 @@ const images = [
   'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80',
 ]
 
+
+
+function Apropos() {
+  const { t } = useLanguage()
+  const { width } = useWindowSize()
+  const isMobile = width < 768
+
+
 const piliers = [
   {
     icon: 'fa-bullseye',
-    titre: 'Notre mission',
-    texte: 'Rendre la technologie accessible et impactante pour toutes les entreprises, quelle que soit leur taille ou leur secteur d\'activité.'
+    titre: t('ap_mission_titre'),
+    texte: t('ap_mission_texte')
   },
   {
     icon: 'fa-eye',
-    titre: 'Notre vision',
-    texte: 'Devenir le partenaire technologique de référence en Afrique de l\'Ouest, en propulsant la transformation digitale du continent.'
+    titre: t('ap_vision_titre'),
+    texte: t('ap_vision_texte')
   },
   {
     icon: 'fa-handshake',
-    titre: 'Notre engagement',
-    texte: 'Accompagner chaque client de l\'idée à la livraison avec transparence, qualité et un suivi personnalisé sur le long terme.'
+    titre: t('ap_engagement_titre'),
+    texte: t('ap_engagement_texte')
   }
 ]
 
 const chiffres = [
-  { num: '17+', label: 'Services proposés' },
-  { num: '3', label: "Domaines d'expertise" },
-  { num: '100%', label: 'Sur mesure' },
-  { num: '4', label: 'Experts passionnés' },
+  { num: '17+', label: t('ap_stat1') },
+  { num: '3', label: t('ap_stat2') },
+  { num: '100%', label: t('ap_stat3') },
+  { num: '4', label: t('ap_stat4') },
 ]
-
-function Apropos() {
-  const { width } = useWindowSize()
-  const isMobile = width < 768
 
   return (
     <section id="apropos" style={{
@@ -50,16 +55,16 @@ function Apropos() {
         {/* En-tête */}
         <div style={{ textAlign: 'center', marginBottom: isMobile ? 40 : 80 }}>
           <div style={{ fontSize: 12, letterSpacing: 2, textTransform: 'uppercase', color: '#00C2FF', fontWeight: 600, marginBottom: 12 }}>
-            Qui sommes-nous
+             {t('ap_label')}
           </div>
           <h2 style={{ fontSize: isMobile ? '1.8rem' : 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 800, lineHeight: 1.2, marginBottom: 16 }}>
-            Rivex, l'innovation{' '}
+            {t('ap_titre1')}{' '}
             <span style={{ background: 'linear-gradient(135deg, #0066FF, #00C2FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              made in Bénin
+            {t('ap_titre2')}
             </span>
           </h2>
           <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', color: '#8899bb', maxWidth: 600, margin: '0 auto', lineHeight: 1.75 }}>
-            Rivex est une entreprise technologique béninoise à la pointe de l'innovation. Nous combinons expertise technique et vision stratégique pour offrir des solutions intelligentes qui transforment les entreprises et les secteurs clés.
+            {t('ap_desc')}
           </p>
         </div>
 

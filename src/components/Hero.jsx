@@ -1,7 +1,9 @@
 import TechBackground from './TechBackground'
 import useWindowSize from '../hooks/useWindowSize'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 function Hero() {
+  const { t } = useLanguage()
   const { width } = useWindowSize()
   const isMobile = width < 768
 
@@ -44,13 +46,13 @@ function Hero() {
             fontWeight: 800, lineHeight: 1.12, marginBottom: 20, letterSpacing: '-0.5px'
           }}>
             <span style={{ background: 'linear-gradient(135deg, #0066FF, #00C2FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              L'innovation
+               {t('hero_titre1')}
             </span>
             <br />
-            <span style={{ color: '#fff' }}>au service de</span>
+            <span style={{ color: '#fff' }}>{t('hero_titre2')}</span>
             <br />
             <span style={{ background: 'linear-gradient(135deg, #0066FF, #00C2FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              votre futur
+              {t('hero_titre3')}
             </span>
           </h1>
 
@@ -60,7 +62,7 @@ function Hero() {
             color: '#8899bb', lineHeight: 1.75, marginBottom: 36,
             maxWidth: isMobile ? '100%' : 520
           }}>
-            Rivex conçoit, automatise et élève vos projets technologiques — du développement web & mobile à l'agriculture intelligente, en passant par la cybersécurité et l'IA.
+           {t('hero_desc')}
           </p>
 
           {/* Boutons */}
@@ -75,7 +77,7 @@ function Hero() {
               color: '#fff', textDecoration: 'none',
               boxShadow: '0 0 30px rgba(0,102,255,0.35)'
             }}>
-              Découvrir nos services
+             {t('hero_btn1')}
             </a>
             <a href="#contact" style={{
               padding: isMobile ? '12px 22px' : '14px 30px',
@@ -83,7 +85,7 @@ function Hero() {
               background: 'transparent', color: '#fff', textDecoration: 'none',
               border: '1px solid rgba(255,255,255,0.2)'
             }}>
-              Demander un devis
+              {t('hero_btn2')}
             </a>
           </div>
 
@@ -94,9 +96,9 @@ function Hero() {
             flexWrap: 'wrap'
           }}>
             {[
-              { num: '17+', label: 'Services proposés' },
-              { num: '3', label: "Domaines d'expertise" },
-              { num: '100%', label: 'Solutions sur mesure' },
+              { num: '17+', label: t('hero_stat1') },
+              { num: '3', label: t('hero_stat2') },
+              { num: '100%', label: t('hero_stat3') },
             ].map(s => (
               <div key={s.label}>
                 <div style={{

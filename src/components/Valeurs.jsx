@@ -1,34 +1,36 @@
 import TechBackground from './TechBackground'
 import SliderBackground from './SliderBackground'
 import useWindowSize from '../hooks/useWindowSize'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 const images = [
   'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=80',
   'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80',
   'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&q=80',
 ]
+function Valeurs() {
+  const { t } = useLanguage()
+  const { width } = useWindowSize()
+  const isMobile = width < 768
+
 
 const valeurs = [
   {
     icon: 'fa-lightbulb',
-    titre: 'Innovate',
-    texte: 'Nous concevons des solutions originales et sur mesure qui répondent précisément aux défis de votre secteur. Chaque projet est une opportunité de repousser les limites.'
+    titre: t('val_1_titre'),
+    texte: t('val_1_texte')
   },
   {
     icon: 'fa-bolt',
-    titre: 'Automate',
-    texte: 'Nous automatisons vos processus métier pour libérer votre équipe des tâches répétitives et vous permettre de vous concentrer sur ce qui compte vraiment.'
+    titre: t('val_2_titre'),
+    texte: t('val_2_texte')
   },
   {
     icon: 'fa-rocket',
-    titre: 'Elevate',
-    texte: 'Nous élevons votre performance à un niveau supérieur grâce à des technologies intelligentes — IA, IoT, systèmes embarqués — adaptées à vos objectifs.'
+    titre: t('val_3_titre'),
+    texte: t('val_3_texte')
   }
 ]
-
-function Valeurs() {
-  const { width } = useWindowSize()
-  const isMobile = width < 768
 
   return (
     <section id="valeurs" style={{
@@ -46,22 +48,22 @@ function Valeurs() {
             fontSize: 12, letterSpacing: 2, textTransform: 'uppercase',
             color: '#00C2FF', fontWeight: 600, marginBottom: 12
           }}>
-            Notre ADN
+        {t('val_label')}
           </div>
           <h2 style={{
             fontSize: isMobile ? '1.8rem' : 'clamp(1.8rem, 3.5vw, 2.8rem)',
             fontWeight: 800, lineHeight: 1.2, marginBottom: 16
           }}>
-            Trois piliers,{' '}
+             {t('val_titre1')},{' '}
             <span style={{ background: 'linear-gradient(135deg, #0066FF, #00C2FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              une vision
+               {t('val_titre2')}
             </span>
           </h2>
           <p style={{
             fontSize: isMobile ? '0.9rem' : '1rem',
             color: '#8899bb', maxWidth: 520, margin: '0 auto', lineHeight: 1.75
           }}>
-            Tout ce que nous créons repose sur trois engagements fondamentaux qui guident chaque projet, chaque décision.
+           {t('val_desc')}
           </p>
         </div>
 

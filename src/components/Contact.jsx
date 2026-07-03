@@ -1,9 +1,16 @@
 import TechBackground from './TechBackground'
 import useWindowSize from '../hooks/useWindowSize'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 function Contact() {
   const { width } = useWindowSize()
   const isMobile = width < 768
+  const { t } = useLanguage()
+  const infos = [
+  { icon: 'fa-phone', titre: t('ct_tel'), valeur: '+229 01 56 39 47 41' },
+  { icon: 'fa-envelope', titre: t('ct_email'), valeur: 'rivex15@outlook.com' },
+  { icon: 'fa-map-marker-alt', titre: t('ct_adresse'), valeur: t('ct_adresse_val') },
+]
 
   return (
     <section id="contact" style={{
@@ -17,16 +24,16 @@ function Contact() {
         {/* En-tête */}
         <div style={{ textAlign: 'center', marginBottom: isMobile ? 40 : 60 }}>
           <div style={{ fontSize: 12, letterSpacing: 2, textTransform: 'uppercase', color: '#00C2FF', fontWeight: 600, marginBottom: 12 }}>
-            Parlons de votre projet
+             {t('ct_label')}
           </div>
           <h2 style={{ fontSize: isMobile ? '1.8rem' : 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 800, lineHeight: 1.2, marginBottom: 16 }}>
-            Contactez{' '}
+            {t('ct_titre')}{' '}
             <span style={{ background: 'linear-gradient(135deg, #0066FF, #00C2FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               Rivex
             </span>
           </h2>
           <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', color: '#8899bb', maxWidth: 480, margin: '0 auto', lineHeight: 1.75 }}>
-            Une idée ? Un projet ? Un besoin urgent ? Notre équipe vous répond rapidement et vous accompagne de A à Z.
+            {t('ct_desc')}
           </p>
         </div>
 
@@ -40,11 +47,7 @@ function Contact() {
           {/* Infos contact */}
           <div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 36 }}>
-              {[
-                { icon: 'fa-phone', titre: 'Téléphone', valeur: '+229 01 56 39 47 41' },
-                { icon: 'fa-envelope', titre: 'Email', valeur: 'rivex15@outlook.com' },
-                { icon: 'fa-map-marker-alt', titre: 'Adresse', valeur: 'Bénin — Disponible dès août 2025' },
-              ].map((item, i) => (
+              {infos.map((item, i) => (
                 <div key={i} style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
                   <div style={{
                     width: 44, height: 44, borderRadius: 12, flexShrink: 0,
@@ -63,7 +66,7 @@ function Contact() {
 
             {/* Réseaux sociaux */}
             <div style={{ marginBottom: 32 }}>
-              <div style={{ fontSize: 13, color: '#8899bb', marginBottom: 14, fontWeight: 500 }}>Suivez-nous</div>
+              <div style={{ fontSize: 13, color: '#8899bb', marginBottom: 14, fontWeight: 500 }}> {t('ct_suivez')}</div>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 {[
                  { icon: 'fa-facebook-f', href: 'https://www.facebook.com/profile.php?id=61591720462723' },
@@ -105,7 +108,7 @@ function Contact() {
                 justifyContent: isMobile ? 'center' : 'flex-start'
               }}>
               <i className="fab fa-whatsapp" style={{ fontSize: 20 }} />
-              Contacter sur WhatsApp
+             {t('ct_whatsapp')}
             </a>
           </div>
 
@@ -121,8 +124,8 @@ function Contact() {
               gap: 16, marginBottom: 16
             }}>
               {[
-                { label: 'Nom complet', type: 'text', placeholder: 'Votre nom' },
-                { label: 'Email', type: 'email', placeholder: 'votre@email.com' },
+                { label: t('ct_nom'), type: 'text', placeholder: t('ct_nom_ph') },
+                { label: t('ct_email'), type: 'email', placeholder: t('ct_email_ph') },
               ].map((f, i) => (
                 <div key={i}>
                   <label style={{ display: 'block', fontSize: 13, color: '#8899bb', marginBottom: 8, fontWeight: 500 }}>
@@ -145,7 +148,7 @@ function Contact() {
               <label style={{ display: 'block', fontSize: 13, color: '#8899bb', marginBottom: 8, fontWeight: 500 }}>
                 Téléphone / WhatsApp
               </label>
-              <input type="tel" placeholder="+229 01 90 00 00 00"
+              <input type="tel" placeholder={t('ct_tel_ph')}
                 onFocus={e => e.target.style.borderColor = '#0066FF'}
                 onBlur={e => e.target.style.borderColor = '#1a2540'}
                 style={{
@@ -158,7 +161,7 @@ function Contact() {
 
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: 'block', fontSize: 13, color: '#8899bb', marginBottom: 8, fontWeight: 500 }}>
-                Service qui vous intéresse
+                {t('ct_service')}
               </label>
               <select
                 onFocus={e => e.target.style.borderColor = '#0066FF'}
@@ -169,7 +172,7 @@ function Contact() {
                   color: '#e2e8f0', fontFamily: 'Poppins, sans-serif',
                   fontSize: 14, outline: 'none', transition: 'border-color 0.2s'
                 }}>
-                <option value="">— Sélectionner un service —</option>
+                <option value="">{t('ct_service_ph')}</option>
                 <optgroup label="Tech & Digital">
                   <option>Création de site web</option>
                   <option>Application mobile</option>
@@ -196,9 +199,9 @@ function Contact() {
 
             <div style={{ marginBottom: 24 }}>
               <label style={{ display: 'block', fontSize: 13, color: '#8899bb', marginBottom: 8, fontWeight: 500 }}>
-                Décrivez votre projet
+                {t('ct_projet')}
               </label>
-              <textarea placeholder="Décrivez brièvement votre besoin, vos objectifs, votre budget approximatif..."
+              <textarea placeholder={t('ct_projet_ph')}
                 rows={5}
                 onFocus={e => e.target.style.borderColor = '#0066FF'}
                 onBlur={e => e.target.style.borderColor = '#1a2540'}
@@ -222,7 +225,7 @@ function Contact() {
                 fontFamily: 'Poppins, sans-serif', transition: 'opacity 0.2s',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8
               }}>
-              Envoyer ma demande
+            {t('ct_envoyer')}
               <i className="fas fa-paper-plane" style={{ fontSize: 14 }} />
             </button>
           </div>

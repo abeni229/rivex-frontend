@@ -1,6 +1,7 @@
 import TechBackground from './TechBackground'
 import SliderBackground from './SliderBackground'
 import useWindowSize from '../hooks/useWindowSize'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 const images = [
   'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80',
@@ -9,6 +10,7 @@ const images = [
 ]
 
 function Portfolio() {
+  const { t } = useLanguage()
   const { width } = useWindowSize()
   const isMobile = width < 768
 
@@ -25,16 +27,16 @@ function Portfolio() {
         {/* En-tête */}
         <div style={{ textAlign: 'center', marginBottom: isMobile ? 40 : 60 }}>
           <div style={{ fontSize: 12, letterSpacing: 2, textTransform: 'uppercase', color: '#00C2FF', fontWeight: 600, marginBottom: 12 }}>
-            Nos réalisations
+           {t('po_label')}
           </div>
           <h2 style={{ fontSize: isMobile ? '1.8rem' : 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 800, lineHeight: 1.2, marginBottom: 16 }}>
-            Ce que nous{' '}
+             {t('po_titre1')}{' '}
             <span style={{ background: 'linear-gradient(135deg, #0066FF, #00C2FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              avons construit
+           {t('po_titre2')}
             </span>
           </h2>
           <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', color: '#8899bb', maxWidth: 480, margin: '0 auto', lineHeight: 1.75 }}>
-            Découvrez bientôt nos premiers projets réalisés pour nos clients.
+         {t('po_desc')}
           </p>
         </div>
 
@@ -57,10 +59,10 @@ function Portfolio() {
           </div>
 
           <h3 style={{ fontSize: isMobile ? '1.3rem' : '1.6rem', fontWeight: 700, color: '#fff', marginBottom: 12 }}>
-            Nos premiers projets arrivent bientôt
+             {t('po_cs_titre')}
           </h3>
           <p style={{ fontSize: isMobile ? 13 : 15, color: '#8899bb', maxWidth: 480, margin: '0 auto 32px', lineHeight: 1.75 }}>
-            Rivex est une jeune entreprise ambitieuse. Nos premiers projets clients sont en cours de réalisation. Revenez très bientôt !
+           {t('po_cs_desc')}
           </p>
 
           {/* Formulaire notification */}
@@ -70,7 +72,7 @@ function Portfolio() {
           }}>
             <input
               type="email"
-              placeholder="Votre email pour être notifié"
+              placeholder={t('po_cs_email')}
               style={{
                 flex: 1, padding: '12px 16px', borderRadius: 8,
                 background: '#0A0F1C', border: '1px solid #1a2540',
@@ -86,7 +88,7 @@ function Portfolio() {
               color: '#fff', border: 'none', cursor: 'pointer',
               fontFamily: 'Poppins, sans-serif', whiteSpace: 'nowrap'
             }}>
-              M'alerter
+             {t('po_cs_btn')}
             </button>
           </div>
 

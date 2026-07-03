@@ -1,19 +1,27 @@
 import { useState, useEffect } from 'react'
 import useWindowSize from '../hooks/useWindowSize'
-
-const servicesDropdown = [
-  { icon: 'fa-laptop-code', label: 'Tech & Digital', id: 'tech' },
-  { icon: 'fa-bolt', label: 'Électronique & Systèmes', id: 'elec' },
-  { icon: 'fa-seedling', label: 'Agriculture Intelligente', id: 'agri' },
-]
+import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [servicesHover, setServicesHover] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
+  const { langue, setLangue, t } = useLanguage()
   const { width } = useWindowSize()
   const isMobile = width < 1024
+
+  const servicesDropdown = [
+    { icon: 'fa-laptop-code', label: t('drop_tech'), id: 'tech' },
+    { icon: 'fa-bolt', label: t('drop_elec'), id: 'elec' },
+    { icon: 'fa-seedling', label: t('drop_agri'), id: 'agri' },
+  ]
+
+  const links = [
+    { label: t('nav_apropos'), href: '#apropos' },
+    { label: t('nav_realisations'), href: '#portfolio' },
+    { label: t('nav_contact'), href: '#contact' },
+  ]
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
@@ -29,13 +37,6 @@ function Navbar() {
     if (el) el.scrollIntoView({ behavior: 'smooth' })
     window.dispatchEvent(new CustomEvent('openServiceTab', { detail: id }))
   }
-
-  const links = [
-    { label: 'Accueil', href: '#hero' },
-    { label: 'À propos', href: '#apropos' },
-    { label: 'Réalisations', href: '#portfolio' },
-    { label: 'Contact', href: '#contact' },
-  ]
 
   return (
     <>
@@ -80,7 +81,7 @@ function Navbar() {
               <a href="#hero" style={{ textDecoration: 'none', color: '#8899bb', fontSize: 14, fontWeight: 500, transition: 'color 0.2s' }}
                 onMouseEnter={e => e.target.style.color = '#00C2FF'}
                 onMouseLeave={e => e.target.style.color = '#8899bb'}>
-                Accueil
+                {t('nav_accueil')}
               </a>
             </li>
 
@@ -93,7 +94,7 @@ function Navbar() {
                 color: servicesHover ? '#00C2FF' : '#8899bb',
                 display: 'flex', alignItems: 'center', gap: 6
               }}>
-                Services
+                {t('nav_services')}
                 <i className={`fas fa-chevron-${servicesHover ? 'up' : 'down'}`} style={{ fontSize: 11 }} />
               </a>
 
@@ -125,7 +126,7 @@ function Navbar() {
                         <div>
                           <div style={{ fontSize: 14, fontWeight: 600, color: '#fff' }}>{s.label}</div>
                           <div style={{ fontSize: 12, color: '#8899bb', marginTop: 2 }}>
-                            {s.id === 'tech' ? '6 services' : '5 services'}
+                            {s.id === 'tech' ? `6 ${t('drop_services')}` : `5 ${t('drop_services')}`}
                           </div>
                         </div>
                         <i className="fas fa-arrow-right" style={{ fontSize: 12, color: '#8899bb', marginLeft: 'auto' }} />
@@ -135,14 +136,14 @@ function Navbar() {
                   <div style={{ padding: '12px 20px', background: 'rgba(0,102,255,0.05)', borderTop: '1px solid #1a2540', textAlign: 'center' }}>
                     <a href="#services" onClick={() => setServicesHover(false)}
                       style={{ fontSize: 13, color: '#00C2FF', textDecoration: 'none', fontWeight: 500 }}>
-                      Voir tous nos services <i className="fas fa-arrow-right" style={{ fontSize: 11, marginLeft: 4 }} />
+                      {t('nav_voir_services')} <i className="fas fa-arrow-right" style={{ fontSize: 11, marginLeft: 4 }} />
                     </a>
                   </div>
                 </div>
               )}
             </li>
 
-            {links.filter(l => l.label !== 'Accueil').map(l => (
+            {links.map(l => (
               <li key={l.label}>
                 <a href={l.href} style={{ textDecoration: 'none', color: '#8899bb', fontSize: 14, fontWeight: 500 }}
                   onMouseEnter={e => e.target.style.color = '#00C2FF'}
@@ -158,14 +159,17 @@ function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {!isMobile && (
             <div style={{ display: 'flex', gap: 6 }}>
-              {['FR', 'EN'].map((lang, i) => (
-                <button key={lang} style={{
-                  background: 'none',
-                  border: `1px solid ${i === 0 ? '#00C2FF' : '#1a2540'}`,
-                  color: i === 0 ? '#00C2FF' : '#8899bb',
-                  fontSize: 12, padding: '4px 10px', borderRadius: 6,
-                  cursor: 'pointer', fontFamily: 'Poppins, sans-serif'
-                }}>
+              {['FR', 'EN'].map((lang) => (
+                <button key={lang}
+                  onClick={() => setLangue(lang)}
+                  style={{
+                    background: 'none',
+                    border: `1px solid ${langue === lang ? '#00C2FF' : '#1a2540'}`,
+                    color: langue === lang ? '#00C2FF' : '#8899bb',
+                    fontSize: 12, padding: '4px 10px', borderRadius: 6,
+                    cursor: 'pointer', fontFamily: 'Poppins, sans-serif',
+                    transition: 'all 0.2s'
+                  }}>
                   {lang}
                 </button>
               ))}
@@ -178,7 +182,7 @@ function Navbar() {
               background: 'linear-gradient(135deg, #0066FF, #00C2FF)',
               color: '#fff', textDecoration: 'none'
             }}>
-              Devis gratuit
+              {t('nav_devis')}
             </a>
           )}
 
@@ -204,7 +208,15 @@ function Navbar() {
           padding: '32px 5%', overflowY: 'auto',
           display: 'flex', flexDirection: 'column', gap: 8
         }}>
-          {/* Liens principaux */}
+          <a href="#hero" onClick={() => setMenuOpen(false)}
+            style={{
+              padding: '16px 0', fontSize: 18, fontWeight: 600,
+              color: '#fff', textDecoration: 'none',
+              borderBottom: '1px solid #1a2540', display: 'block'
+            }}>
+            {t('nav_accueil')}
+          </a>
+
           {links.map(l => (
             <a key={l.label} href={l.href}
               onClick={() => setMenuOpen(false)}
@@ -226,7 +238,7 @@ function Navbar() {
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                 cursor: 'pointer'
               }}>
-              Services
+              {t('nav_services')}
               <i className={`fas fa-chevron-${servicesOpen ? 'up' : 'down'}`} style={{ color: '#00C2FF', fontSize: 14 }} />
             </div>
             {servicesOpen && (
@@ -248,14 +260,16 @@ function Navbar() {
 
           {/* Switch langue + CTA */}
           <div style={{ marginTop: 24, display: 'flex', gap: 10 }}>
-            {['FR', 'EN'].map((lang, i) => (
-              <button key={lang} style={{
-                background: 'none',
-                border: `1px solid ${i === 0 ? '#00C2FF' : '#1a2540'}`,
-                color: i === 0 ? '#00C2FF' : '#8899bb',
-                fontSize: 13, padding: '8px 16px', borderRadius: 6,
-                cursor: 'pointer', fontFamily: 'Poppins, sans-serif'
-              }}>
+            {['FR', 'EN'].map((lang) => (
+              <button key={lang}
+                onClick={() => setLangue(lang)}
+                style={{
+                  background: 'none',
+                  border: `1px solid ${langue === lang ? '#00C2FF' : '#1a2540'}`,
+                  color: langue === lang ? '#00C2FF' : '#8899bb',
+                  fontSize: 13, padding: '8px 16px', borderRadius: 6,
+                  cursor: 'pointer', fontFamily: 'Poppins, sans-serif'
+                }}>
                 {lang}
               </button>
             ))}
@@ -266,7 +280,7 @@ function Navbar() {
               background: 'linear-gradient(135deg, #0066FF, #00C2FF)',
               color: '#fff', textDecoration: 'none', textAlign: 'center', display: 'block'
             }}>
-            Devis gratuit
+            {t('nav_devis')}
           </a>
         </div>
       )}

@@ -1,6 +1,7 @@
 import TechBackground from './TechBackground'
 import SliderBackground from './SliderBackground'
 import useWindowSize from '../hooks/useWindowSize'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 const images = [
   'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80',
@@ -52,6 +53,7 @@ const membres = [
 ]
 
 function Equipe() {
+  const { t } = useLanguage()
   const { width } = useWindowSize()
   const isMobile = width < 768
   const isTablet = width >= 768 && width < 1024
@@ -69,16 +71,16 @@ function Equipe() {
         {/* En-tête */}
         <div style={{ textAlign: 'center', marginBottom: isMobile ? 40 : 60 }}>
           <div style={{ fontSize: 12, letterSpacing: 2, textTransform: 'uppercase', color: '#00C2FF', fontWeight: 600, marginBottom: 12 }}>
-            Les visages de Rivex
+        {t('eq_label')}
           </div>
           <h2 style={{ fontSize: isMobile ? '1.8rem' : 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 800, lineHeight: 1.2, marginBottom: 16 }}>
             Notre{' '}
             <span style={{ background: 'linear-gradient(135deg, #0066FF, #00C2FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              équipe
+             {t('eq_titre')}
             </span>
           </h2>
           <p style={{ fontSize: isMobile ? '0.9rem' : '1rem', color: '#8899bb', maxWidth: 480, margin: '0 auto', lineHeight: 1.75 }}>
-            Une équipe passionnée de jeunes experts déterminés à construire les solutions technologiques de demain.
+           {t('eq_desc')}
           </p>
         </div>
 
@@ -162,10 +164,10 @@ function Equipe() {
         }}>
           <i className="fas fa-users" style={{ fontSize: isMobile ? 24 : 28, color: '#00C2FF', marginBottom: 12, display: 'block' }} />
           <h4 style={{ fontSize: isMobile ? 15 : 16, fontWeight: 600, color: '#fff', marginBottom: 8 }}>
-            L'équipe grandit !
+           {t('eq_recrutement_titre')}
           </h4>
           <p style={{ fontSize: isMobile ? 13 : 14, color: '#8899bb', marginBottom: 16 }}>
-            Nous recrutons des talents passionnés par la technologie et l'innovation.
+            {t('eq_recrutement_desc')}
           </p>
           <a href="#contact" style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
@@ -174,7 +176,7 @@ function Equipe() {
             background: 'linear-gradient(135deg, #0066FF, #00C2FF)',
             color: '#fff', textDecoration: 'none'
           }}>
-            Nous rejoindre <i className="fas fa-arrow-right" style={{ fontSize: 12 }} />
+            {t('eq_rejoindre')} <i className="fas fa-arrow-right" style={{ fontSize: 12 }} />
           </a>
         </div>
       </div>
